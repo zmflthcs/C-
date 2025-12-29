@@ -7,6 +7,33 @@ View model의 사용으로
 1. 테스트 쉬움.
 2. UI단과 로직단이 분리되어 재사용성 증가
 
+## ContentControl 과 DataTemplate
+### 1. ContentControl
+말 그대로 **"무언가 하나를 담는 그릇"**입니다.
+Content라는 속성에 어떤 객체(문자열, 숫자, 혹은 클래스 인텔리전스 객체 등)든 담을 수 있음.
+그런데 해당 객체를 어떻게 그려야할지에 대한 정보는 없음
+
+### 2. DataTemplate
+**"특정 데이터 타입을 화면에 이렇게 그려라"**라고 알려주는 시각적 설계도입니다.
+
+만약 data에 따라서 다른 DataTemplate을 주고싶으면 DataTemplateSelector 를 상속한 클래스를 구현하여 사용
+
+ex)
+<Window.Resources>
+    <DataTemplate DataType="{x:Type vms:HomeViewModel}">
+        <views:HomeView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vms:SettingViewModel}">
+        <views:SettingView />
+    </DataTemplate>
+</Window.Resources>
+
+<ContentControl Content="{Binding CurrentViewModel}" ContentTemplate="요거사용해도 됨"/>
+.
+ContentTemplate 속성을 직접 건드리지 않아도, 리소스에 DataType이 지정된 DataTemplate이 있으면 WPF가 알아서 연결
+이렇게 xaml을 구성하는 방식을 View Model First라고 하며 일반적으로 xaml에 view model을 부여하는 방식을 View First 방식이라 함
+
 
 ## Command
 ### 1.Command 란
